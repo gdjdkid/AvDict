@@ -1,6 +1,6 @@
 {
-  "name": "javinfo",
-  "version": "1.2.1",
+  "name": "javdict",
+  "version": "1.2.2",
   "description": "AV番号命令行查询工具",
   "main": "./index.js",
   "type": "module",
