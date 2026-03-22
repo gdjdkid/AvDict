@@ -68,6 +68,20 @@ npm install -g .
 jav -v
 ```
 
+## 更新方法
+
+**方式一：通过 npm 更新（推荐）**
+```bash
+sudo npm install -g javdict@latest
+```
+
+**方式二：从 GitHub 克隆安装（开发者）**
+```bash
+cd AvDict
+git pull
+sudo npm install -g .
+```
+
 ---
 
 ## 使用说明

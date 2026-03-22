@@ -68,6 +68,20 @@ npm install -g .
 jav -v
 ```
 
+## Aktualisierung
+
+**Option 1: Update über npm（empfohlen）**
+```bash
+sudo npm install -g javdict@latest
+```
+
+**Option 2: Update von GitHub（für Entwickler）**
+```bash
+cd AvDict
+git pull
+sudo npm install -g .
+```
+
 ---
 
 ## Verwendung
