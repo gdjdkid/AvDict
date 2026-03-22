@@ -227,9 +227,9 @@ PRs and Issues are welcome!
 
 If this tool saves you time, consider supporting development:
 
-| WeChat Pay | Alipay |
-|------------|--------|
-| *(QR code)* | *(QR code)* |
+| WeChat Pay | Alipay | PayPal |
+|------------|--------|--------|
+| ![WeChat](assets/WeChatPay.JPG) | ![Alipay](assets/AliPay.JPG) | ![PayPal](assets/PayPal.jpg) |
 
 ---
 

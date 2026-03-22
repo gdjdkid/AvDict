@@ -218,9 +218,9 @@ PRs und Issues sind willkommen！
 
 Wenn dir dieses Tool Zeit spart, unterstütze gerne die Entwicklung：
 
-| WeChat Pay | Alipay |
-|------------|--------|
-| *(QR-Code)* | *(QR-Code)* |
+| WeChat Pay | Alipay | PayPal |
+|------------|--------|--------|
+| ![WeChat](assets/WeChatPay.JPG) | ![Alipay](assets/AliPay.JPG) | ![PayPal](assets/PayPal.jpg) |
 
 ---
 
