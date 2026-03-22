@@ -11,6 +11,8 @@
 
 输入一个车牌号，即可获取女优、发售日期、制作商、时长、类别等完整信息。支持多数据源自动兜底，无需手动切换。
 
+![JavDict-Demo](https://raw.githubusercontent.com/gdjdkid/AvDict/master/Javdict-Demo.gif)
+
 ---
 
 ## 功能特点

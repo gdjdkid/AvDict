@@ -11,7 +11,7 @@ English | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](READM
 
 Type a title ID, get back the full details — cast, release date, studio, duration, tags, and more. Multiple data sources are queried automatically with no manual switching required.
 
-![Example](https://raw.githubusercontent.com/gdjdkid/AvDict/master/example.gif)
+![JavDict-Demo](https://raw.githubusercontent.com/gdjdkid/AvDict/master/Javdict-Demo.gif)
 
 ---
 
