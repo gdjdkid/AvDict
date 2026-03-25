@@ -8,6 +8,7 @@ import { display } from './lib/display.js';
 import { clearCache, setConfig } from './lib/cache.js';
 import ora from 'ora';
 import chalk from 'chalk';
+import { getLang } from './lib/i18n.js';
 
 const require = createRequire(import.meta.url);
 const pkg = require('./package.json');
@@ -20,6 +21,7 @@ program
     .option('-r, --raw', '显示原始详细数据')
     .option('--clear-cache', '清空本地缓存')
     .option('--setup', '配置JAVDB Cookie（可选，提高查询覆盖率）')
+    .option('-l, --lang <lang>', '显示语言 zh/en/jp/kr/de', 'zh')
     .action(async (id, options) => {
 
         if (options.setup) {
@@ -63,21 +65,26 @@ program
             process.exit(0);
         }
 
-        const spinner = ora(`正在查询 ${id.toUpperCase()} ...`).start();
+        const t = getLang(options.lang || 'zh');
+        const spinner = ora(`${t.searching} ${id.toUpperCase()} ...`).start();
 
         try {
             const result = await search(id.toUpperCase());
             spinner.stop();
 
             if (!result) {
-                console.log(chalk.red(`\n未找到番号: ${id.toUpperCase()}`));
+                console.log(chalk.red(`\n${t.notFound}: ${id.toUpperCase()}`));
+                // Windows 用户提示
+                if (process.platform === 'win32') {
+                    process.stderr.write(chalk.gray(`  ${t.windowsHint}\n`));
+                }
                 process.exit(1);
             }
 
-            display(result, options.raw);
+            display(result, options.raw, options.lang || 'zh');
         } catch (err) {
             spinner.stop();
-            console.error('\n查询失败:', err.message);
+            console.error(`\n${t.queryFailed}:`, err.message);
             process.exit(1);
         }
     });
