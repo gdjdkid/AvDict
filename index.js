@@ -71,7 +71,7 @@ program
         const spinner = ora(`${t.searching} ${id.toUpperCase()} ...`).start();
 
         try {
-            const result = await search(id.toUpperCase());
+            const result = await search(id.toUpperCase(), lang);
             spinner.stop();
 
             if (!result) {
