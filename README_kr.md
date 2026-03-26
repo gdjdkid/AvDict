@@ -1,4 +1,4 @@
-[English](README.md) | [中文](README_zh.md) | [日本語](README_ja.md) | 한국어 | [Deutsch](README_de.md)
+[English](README.md) | [中文](README_zh.md) | [日本語](README_jp.md) | 한국어 | [Deutsch](README_de.md)
 
 # AvDict 🎬
 
@@ -94,6 +94,16 @@ jav ABF-331
 jav JUR-067
 ```
 
+**언어를 지정하여 출력：**
+```bash
+jav --lang kr SSIS-001   # 한국어
+jav --lang zh SSIS-001   # 中文
+jav --lang en SSIS-001   # English
+jav --lang jp SSIS-001   # 日本語
+jav --lang de SSIS-001   # Deutsch
+jav -l ko SSIS-001       # 축약형
+```
+
 **원시 JSON 출력：**
 
 ```bash
@@ -130,6 +140,7 @@ Arguments:
 
 Options:
   -v, --version         버전 출력
+  -l, --lang <언어>     출력 언어: zh/en/jp/kr/de (기본값: zh)
   -r, --raw             원시 JSON 형식으로 출력
   --setup               JAVDB Cookie 설정（선택, 커버리지 향상）
   --clear-cache         로컬 캐시 삭제

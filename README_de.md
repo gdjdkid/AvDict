@@ -1,4 +1,4 @@
-[English](README.md) | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](README_ko.md) | Deutsch
+[English](README.md) | [中文](README_zh.md) | [日本語](README_jp.md) | [한국어](README_kr.md) | Deutsch
 
 # AvDict 🎬
 
@@ -94,6 +94,16 @@ jav ABF-331
 jav JUR-067
 ```
 
+**Ausgabe in bestimmter Sprache：**
+```bash
+jav --lang de SSIS-001   # Deutsch
+jav --lang zh SSIS-001   # 中文
+jav --lang en SSIS-001   # English
+jav --lang jp SSIS-001   # 日本語
+jav --lang kr SSIS-001   # 한국어
+jav -l de SSIS-001       # Kurzform
+```
+
 **Rohdaten als JSON ausgeben：**
 
 ```bash
@@ -130,6 +140,7 @@ Arguments:
 
 Options:
   -v, --version         Versionsnummer ausgeben
+  -l, --lang <Sprache>  Ausgabesprache: zh/en/jp/kr/de (Standard: zh)
   -r, --raw             Ausgabe als rohes JSON
   --setup               JAVDB Cookie konfigurieren（optional, verbessert Abdeckung）
   --clear-cache         Lokalen Cache leeren

@@ -1,4 +1,4 @@
-[English](README.md) | 中文 | [日本語](README_ja.md) | [한국어](README_ko.md) | [Deutsch](README_de.md)
+[English](README.md) | 中文 | [日本語](README_jp.md) | [한국어](README_kr.md) | [Deutsch](README_de.md)
 
 # AvDict 🎬
 
@@ -94,6 +94,16 @@ jav ABF-331
 jav JUR-067
 ```
 
+**指定语言输出：**
+```bash
+jav --lang zh SSIS-001   # 中文（默认）
+jav --lang en SSIS-001   # English
+jav --lang jp SSIS-001   # 日本語
+jav --lang kr SSIS-001   # 한국어
+jav --lang de SSIS-001   # Deutsch
+jav -l en SSIS-001       # 缩写
+```
+
 **输出原始 JSON 数据：**
 
 ```bash
@@ -130,6 +140,7 @@ Arguments:
 
 Options:
   -v, --version         显示版本号
+  -l, --lang <语言>      输出语言：zh/en/jp/kr/de（默认：zh）
   -r, --raw             以原始 JSON 格式输出结果
   --setup               配置 JAVDB Cookie（可选，提高覆盖率）
   --clear-cache         清空本地缓存

@@ -1,4 +1,4 @@
-[English](README.md) | [中文](README_zh.md) | 日本語 | [한국어](README_ko.md) | [Deutsch](README_de.md)
+[English](README.md) | [中文](README_zh.md) | 日本語 | [한국어](README_kr.md) | [Deutsch](README_de.md)
 
 # AvDict 🎬
 
@@ -94,6 +94,16 @@ jav ABF-331
 jav JUR-067
 ```
 
+**言語を指定して出力：**
+```bash
+jav --lang jp SSIS-001   # 日本語（デフォルト設定時）
+jav --lang zh SSIS-001   # 中文
+jav --lang en SSIS-001   # English
+jav --lang kr SSIS-001   # 한국어
+jav --lang de SSIS-001   # Deutsch
+jav -l ja SSIS-001       # 省略形
+```
+
 **生の JSON データで出力：**
 
 ```bash
@@ -130,6 +140,7 @@ Arguments:
 
 Options:
   -v, --version         バージョンを表示
+  -l, --lang <言語>     出力言語：zh/en/jp/kr/de（デフォルト：zh）
   -r, --raw             生の JSON 形式で出力
   --setup               JAVDB Cookie を設定（任意、カバレッジ向上）
   --clear-cache         ローカルキャッシュを削除

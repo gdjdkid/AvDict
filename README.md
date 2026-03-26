@@ -1,4 +1,4 @@
-English | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](README_ko.md) | [Deutsch](README_de.md)
+English | [中文](README_zh.md) | [日本語](README_jp.md) | [한국어](README_kr.md) | [Deutsch](README_de.md)
 
 # AvDict 🎬
 
@@ -92,6 +92,16 @@ jav ABF-331
 jav JUR-067
 ```
 
+**Query with specific language output:**
+```bash
+jav --lang en SSIS-001   # English
+jav --lang zh SSIS-001   # 中文
+jav --lang jp SSIS-001   # 日本語
+jav --lang kr SSIS-001   # 한국어
+jav --lang de SSIS-001   # Deutsch
+jav -l en SSIS-001       # shorthand
+```
+
 **Output raw JSON:**
 
 ```bash
@@ -128,6 +138,7 @@ Arguments:
 
 Options:
   -v, --version         Print version number
+  -l, --lang <lang>     Output language: zh/en/jp/kr/de (default: zh)
   -r, --raw             Output raw JSON instead of formatted display
   --setup               Configure JAVDB Cookie (optional, improves coverage)
   --clear-cache         Clear local result cache
