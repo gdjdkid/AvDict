@@ -24,29 +24,32 @@ program
     .option('-l, --lang <lang>', '显示语言 zh/en/jp/kr/de', 'zh')
     .action(async (id, options) => {
 
+        const lang = options.lang || 'zh';
+        const t = getLang(lang);   // 统一获取语言包
+
         if (options.setup) {
             console.log('');
-            console.log(chalk.yellow('=== 配置 JAVDB Cookie（可选）==='));
+            console.log(chalk.yellow('=== ' + (t.setupTitle || '配置 JAVDB Cookie（可选）') + ' ==='));
             console.log('');
-            console.log('不配置也可以正常使用，配置后覆盖率更高。');
+            console.log(t.setupDesc || '不配置也可以正常使用，配置后覆盖率更高。');
             console.log('');
-            console.log('获取步骤：');
-            console.log('  1. Chrome 打开 https://javdb.com 并登录账号');
-            console.log('  2. 安装插件 "Get cookies.txt LOCALLY"');
-            console.log('  3. 导出 Cookie 文件，找到 _jdb_session 那行');
-            console.log('  4. 复制最后一列的值粘贴到下面');
+            console.log(t.setupSteps || '获取步骤：');
+            console.log('  1. ' + (t.setupStep1 || 'Chrome 打开 https://javdb.com 并登录账号'));
+            console.log('  2. ' + (t.setupStep2 || '安装插件 "Get cookies.txt LOCALLY"'));
+            console.log('  3. ' + (t.setupStep3 || '导出 Cookie 文件，找到 _jdb_session 那行'));
+            console.log('  4. ' + (t.setupStep4 || '复制最后一列的值粘贴到下面'));
             console.log('');
 
             const rl = createInterface({ input: process.stdin, output: process.stdout });
             await new Promise((resolve) => {
-                rl.question(chalk.cyan('请粘贴 _jdb_session 的值（直接回车跳过）: '), (session) => {
+                rl.question(chalk.cyan((t.setupPrompt || '请粘贴 _jdb_session 的值（直接回车跳过）: ')), (session) => {
                     rl.close();
                     if (!session.trim()) {
-                        console.log(chalk.gray('\n已跳过，使用 JAVBUS + JavLibrary 作为数据源。'));
+                        console.log(chalk.gray('\n' + (t.setupSkipped || '已跳过，使用 JAVBUS + JavLibrary 作为数据源。')));
                     } else {
                         setConfig({ session: session.trim() });
-                        console.log(chalk.green('\n✅ 配置保存成功！'));
-                        console.log(chalk.gray('保存位置: ~/.config/javinfo/config.json'));
+                        console.log(chalk.green('\n✅ ' + (t.setupSuccess || '配置保存成功！')));
+                        console.log(chalk.gray((t.setupSavePath || '保存位置: ~/.config/javinfo/config.json')));
                     }
                     console.log('');
                     resolve();
@@ -56,7 +59,7 @@ program
         }
 
         if (options.clearCache) {
-            clearCache(options.lang || 'zh');   // 支持 -l zh/en/jp 等
+            clearCache(lang);
             process.exit(0);
         }
 
@@ -65,7 +68,6 @@ program
             process.exit(0);
         }
 
-        const t = getLang(options.lang || 'zh');
         const spinner = ora(`${t.searching} ${id.toUpperCase()} ...`).start();
 
         try {
@@ -81,7 +83,7 @@ program
                 process.exit(1);
             }
 
-            display(result, options.raw, options.lang || 'zh');
+            display(result, options.raw, lang);
         } catch (err) {
             spinner.stop();
             console.error(`\n${t.queryFailed}:`, err.message);
