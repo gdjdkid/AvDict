@@ -1,3 +1,30 @@
+import { beforeAll } from 'vitest';
+
+// 为 Node 18 提供缺失的 Web API（File, FormData 等）
+beforeAll(() => {
+    if (typeof File === 'undefined') {
+        global.File = class File {
+            constructor(bits, name, options = {}) {
+                this.bits = bits;
+                this.name = name;
+                this.type = options.type || '';
+                this.size = bits.length || 0;
+            }
+        };
+    }
+
+    if (typeof FormData === 'undefined') {
+        global.FormData = class FormData {
+            constructor() {
+                this.data = new Map();
+            }
+            append(key, value) {
+                this.data.set(key, value);
+            }
+        };
+    }
+});
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // mock execSync，避免真实的 curl 网络请求
