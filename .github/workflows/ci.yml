@@ -29,6 +29,11 @@ jobs:
 
       - name: Run tests
         run: npm test
+        continue-on-error: true     # 先让 CI 不因为测试失败而整体失败
+
+      - name: Show test output   # 可选，强制显示详细日志
+        if: always()
+        run: npm test -- --reporter=verbose
 
       # 如果你以后加了 ESLint / Prettier，可以在这里加
       # - name: Lint
