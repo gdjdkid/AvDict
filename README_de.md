@@ -11,7 +11,7 @@
 
 Gib eine Titel-ID ein und erhalte sofort vollständige Informationen — Besetzung, Erscheinungsdatum, Studio, Laufzeit, Tags und mehr. Mehrere Datenquellen werden automatisch abgefragt, ohne manuelles Umschalten.
 
-![JavDict-Demo](https://raw.githubusercontent.com/gdjdkid/AvDict/master/Javdict-Demo.gif)
+![JavDict-Demo-de](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-de.gif)
 
 ---
 

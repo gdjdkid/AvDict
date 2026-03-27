@@ -11,7 +11,7 @@
 
 番号を入力するだけで、出演者・発売日・メーカー・収録時間・タグなどの詳細情報を取得できます。複数のデータソースを自動的に切り替えて検索します。
 
-![JavDict-Demo](https://raw.githubusercontent.com/gdjdkid/AvDict/master/Javdict-Demo.gif)
+![JavDict-Demo-jp](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-jp.gif)
 
 ---
 

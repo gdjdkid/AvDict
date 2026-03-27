@@ -11,7 +11,7 @@
 
 번호를 입력하면 출연진, 발매일, 제작사, 재생 시간, 태그 등 상세 정보를 바로 확인할 수 있습니다. 여러 데이터 소스를 자동으로 전환하며 검색합니다.
 
-![JavDict-Demo](https://raw.githubusercontent.com/gdjdkid/AvDict/master/Javdict-Demo.gif)
+![JavDict-Demo-kr](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-kr.gif)
 
 ---
 
