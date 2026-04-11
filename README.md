@@ -9,7 +9,7 @@ English | [中文](README_zh.md) | [日本語](README_jp.md) | [한국어](READM
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
 
-Type a title ID, get back the full details — cast, release date, studio, duration, tags, and more. Multiple data sources are queried automatically with no manual switching required.
+Type a title ID, get back the full details — cast, release date, studio, duration, tags, and more. Multiple data sources are queried automatically by default, and you can optionally force a single source.
 
 ![JavDict-Demo-en](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-en.gif)
 
@@ -17,7 +17,7 @@ Type a title ID, get back the full details — cast, release date, studio, durat
 
 ## Features
 
-- 🔍 **Multi-source fallback** — Queries JAVBUS → NJAV → JavLibrary → JAVDB in order; returns on first hit
+- 🔍 **Multi-source fallback** — By default it queries JAVBUS → NJAV → JavLibrary → JAVDB in order and returns on first hit; you can also force a single source manually
 - 📋 **Rich metadata** — Cast, release date, duration, studio, label, director, series, tags, cover image, rating
 - 💾 **Local cache** — Results cached for 7 days to reduce repeat requests
 - 🖥️ **Cross-platform** — Linux, Windows, and macOS supported
@@ -108,6 +108,13 @@ jav -l en SSIS-001       # shorthand
 jav -r SSIS-001
 ```
 
+**Force a specific data source:**
+
+```bash
+jav --source javbus SSIS-001
+jav -s njav SSIS-001
+```
+
 **Clear local cache:**
 
 ```bash
@@ -139,6 +146,7 @@ Arguments:
 Options:
   -v, --version         Print version number
   -l, --lang <lang>     Output language: zh/en/jp/kr/de (default: zh)
+  -s, --source <source> Select source: auto/javbus/njav/javlibrary/javdb (default: auto)
   -r, --raw             Output raw JSON instead of formatted display
   --setup               Configure JAVDB Cookie (optional, improves coverage)
   --clear-cache         Clear local result cache
