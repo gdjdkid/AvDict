@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
 
-输入一个车牌号，即可获取女优、发售日期、制作商、时长、类别等完整信息。支持多数据源自动兜底，无需手动切换。
+输入一个车牌号，即可获取女优、发售日期、制作商、时长、类别等完整信息。默认启用多数据源自动兜底，也支持手动指定单一数据源。
 
 ![JavDict-Demo-zh](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-zh.gif)
 
@@ -17,7 +17,7 @@
 
 ## 功能特点
 
-- 🔍 **多数据源自动兜底** — 依次查询 JAVBUS → NJAV → JavLibrary → JAVDB，任意一个命中即返回
+- 🔍 **多数据源自动兜底** — 默认依次查询 JAVBUS → NJAV → JavLibrary → JAVDB，任意一个命中即返回，也可手动指定单一数据源
 - 📋 **信息完整** — 女优、男优、发售日期、时长、制作商、发行商、导演、系列、类别、封面、评分
 - 💾 **本地缓存** — 查询结果缓存 7 天，减少重复请求
 - 🖥️ **跨平台** — 支持 Linux、Windows、macOS
@@ -110,6 +110,13 @@ jav -l en SSIS-001       # 缩写
 jav -r SSIS-001
 ```
 
+**手动指定数据源：**
+
+```bash
+jav --source javbus SSIS-001
+jav -s njav SSIS-001
+```
+
 **清空本地缓存：**
 
 ```bash
@@ -141,6 +148,7 @@ Arguments:
 Options:
   -v, --version         显示版本号
   -l, --lang <语言>      输出语言：zh/en/jp/kr/de（默认：zh）
+  -s, --source <source> 指定数据源：auto/javbus/njav/javlibrary/javdb（默认：auto）
   -r, --raw             以原始 JSON 格式输出结果
   --setup               配置 JAVDB Cookie（可选，提高覆盖率）
   --clear-cache         清空本地缓存

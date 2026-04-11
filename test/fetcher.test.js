@@ -43,6 +43,7 @@ vi.mock('../lib/cache.js', () => ({
 }));
 
 import { execSync } from 'child_process';
+import { getCache, setCache } from '../lib/cache.js';
 import { search } from '../lib/fetcher.js';
 
 // 模拟 HTML 数据
@@ -80,9 +81,32 @@ const MOCK_404_HTML = `
 </html>
 `;
 
+const MOCK_NJAV_HTML = `
+<html>
+  <head><title>SSIS-001 - NJAV</title></head>
+  <body>
+    <script type="application/ld+json">
+      {
+        "name": "SSIS-001 NJAV 标题",
+        "uploadDate": "2021-02-03T00:00:00Z",
+        "duration": "PT2H05M06S",
+        "actor": [{ "name": "女优B" }],
+        "genre": ["人妻", "剧情"],
+        "partOfSeries": { "name": "系列B" }
+      }
+    </script>
+    <div class="detail-item">
+      <div><span>片商</span><span>Studio B</span></div>
+      <div><span>導演</span><span>导演B</span></div>
+    </div>
+  </body>
+</html>
+`;
+
 describe('fetcher.js', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        getCache.mockReturnValue(null);
     });
 
     it('search：正常番号能返回结构完整的对象', async () => {
@@ -96,22 +120,64 @@ describe('fetcher.js', () => {
         expect(result.actresses).toContain('天使もえ');
         expect(result.releaseDate).toBe('2021-01-01');
         expect(result.studio).toBe('SOD Create');
+        expect(getCache).toHaveBeenCalledWith('SSIS-001', 'auto');
+        expect(setCache).toHaveBeenCalledWith('SSIS-001', expect.objectContaining({ source: 'JAVBUS' }), 'auto');
     });
 
-    it('search：搜索结果为空时返回 null', async () => {
-        execSync.mockReturnValue(Buffer.from(MOCK_404_HTML));
+    it('search：默认模式会按顺序自动兜底到下一个数据源', async () => {
+        execSync.mockImplementation((command) => {
+            if (command.includes('https://www.javbus.com/SSIS-001')) {
+                return Buffer.from(MOCK_404_HTML);
+            }
 
-        const result = await search('INVALID-999');
-        expect(result).toBeNull();
-    });
+            if (command.includes('https://www.njav.com/zh/xvideos/ssis-001')) {
+                return Buffer.from(MOCK_NJAV_HTML);
+            }
 
-    it('search：网络请求失败时返回 null', async () => {
-        execSync.mockImplementation(() => {
-            throw new Error('Network Error');
+            throw new Error(`Unexpected command: ${command}`);
         });
 
         const result = await search('SSIS-001');
+
+        expect(result).not.toBeNull();
+        expect(result.source).toBe('NJAV');
+        expect(result.title).toBe('SSIS-001 NJAV 标题');
+        expect(result.studio).toBe('Studio B');
+        expect(execSync).toHaveBeenCalledTimes(2);
+        expect(setCache).toHaveBeenCalledWith('SSIS-001', expect.objectContaining({ source: 'NJAV' }), 'auto');
+    });
+
+    it('search：手动指定数据源时只查询该数据源', async () => {
+        execSync.mockImplementation((command) => {
+            if (command.includes('https://www.javbus.com/SSIS-001')) {
+                return Buffer.from(MOCK_JAVBUS_HTML);
+            }
+
+            throw new Error(`Unexpected command: ${command}`);
+        });
+
+        const result = await search('SSIS-001', 'zh', 'javbus');
+
+        expect(result).not.toBeNull();
+        expect(result.source).toBe('JAVBUS');
+        expect(execSync).toHaveBeenCalledTimes(1);
+        expect(getCache).toHaveBeenCalledWith('SSIS-001', 'javbus');
+        expect(setCache).toHaveBeenCalledWith('SSIS-001', expect.objectContaining({ source: 'JAVBUS' }), 'javbus');
+    });
+
+    it('search：手动指定数据源未命中时不会回退到其他数据源', async () => {
+        execSync.mockImplementation((command) => {
+            if (command.includes('https://www.javlibrary.com/cn/vl_searchbyid.php?keyword=SSIS-001')) {
+                return Buffer.from('<html><body>empty</body></html>');
+            }
+
+            throw new Error(`Unexpected command: ${command}`);
+        });
+
+        const result = await search('SSIS-001', 'zh', 'javlibrary');
+
         expect(result).toBeNull();
+        expect(execSync).toHaveBeenCalledTimes(1);
     });
 
     it('search：返回对象包含所有预期字段', async () => {
