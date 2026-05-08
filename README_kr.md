@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
 
-번호를 입력하면 출연진, 발매일, 제작사, 재생 시간, 태그 등 상세 정보를 바로 확인할 수 있습니다. 여러 데이터 소스를 자동으로 전환하며 검색합니다.
+번호를 입력하면 출연진, 발매일, 제작사, 재생 시간, 태그 등 상세 정보를 바로 확인할 수 있습니다. 기본값으로 여러 데이터 소스를 자동 폴백하며, 필요하면 단일 소스를 직접 지정할 수 있습니다.
 
 ![JavDict-Demo-kr](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-kr.gif)
 
@@ -17,7 +17,7 @@
 
 ## 주요 기능
 
-- 🔍 **다중 소스 자동 폴백** — JAVBUS → NJAV → JavLibrary → JAVDB 순서로 검색, 첫 번째 결과 반환
+- 🔍 **다중 소스 자동 폴백** — 기본값으로 JAVBUS → NJAV → JavLibrary → JAVDB 순서로 검색해 첫 결과를 반환하며, 필요하면 단일 소스를 직접 지정할 수 있습니다
 - 📋 **풍부한 정보** — 여배우, 남배우, 발매일, 재생 시간, 제작사, 레이블, 감독, 시리즈, 태그, 커버 이미지, 평점
 - 💾 **로컬 캐시** — 검색 결과를 7일간 캐시하여 중복 요청 감소
 - 🖥️ **크로스 플랫폼** — Linux, Windows, macOS 지원
@@ -110,6 +110,13 @@ jav -l ko SSIS-001       # 축약형
 jav -r SSIS-001
 ```
 
+**데이터 소스 직접 지정：**
+
+```bash
+jav --source javbus SSIS-001
+jav -s njav SSIS-001
+```
+
 **로컬 캐시 삭제：**
 
 ```bash
@@ -141,6 +148,7 @@ Arguments:
 Options:
   -v, --version         버전 출력
   -l, --lang <언어>     출력 언어: zh/en/jp/kr/de (기본값: zh)
+  -s, --source <source> 데이터 소스 지정: auto/javbus/njav/javlibrary/javdb (기본값: auto)
   -r, --raw             원시 JSON 형식으로 출력
   --setup               JAVDB Cookie 설정（선택, 커버리지 향상）
   --clear-cache         로컬 캐시 삭제

@@ -3,7 +3,7 @@
 import { createInterface } from 'readline';
 import { program } from 'commander';
 import { createRequire } from 'module';
-import { search } from './lib/fetcher.js';
+import { search, SUPPORTED_SOURCES } from './lib/fetcher.js';
 import { display } from './lib/display.js';
 import { clearCache, setConfig } from './lib/cache.js';
 import ora from 'ora';
@@ -22,9 +22,11 @@ program
     .option('--clear-cache', '清空本地缓存')
     .option('--setup', '配置JAVDB Cookie（可选，提高查询覆盖率）')
     .option('-l, --lang <lang>', '显示语言 zh/en/jp/kr/de', 'zh')
+    .option('-s, --source <source>', '指定数据源 auto/javbus/njav/javlibrary/javdb', 'auto')
     .action(async (id, options) => {
 
         const lang = options.lang || 'zh';
+        const source = (options.source || 'auto').toLowerCase();
         const t = getLang(lang);   // 统一获取语言包
 
         if (options.setup) {
@@ -68,10 +70,16 @@ program
             process.exit(0);
         }
 
+        if (!SUPPORTED_SOURCES.includes(source)) {
+            console.error(`\n${t.invalidSource}: ${source}`);
+            console.error(`${t.availableSources}: ${SUPPORTED_SOURCES.join(', ')}`);
+            process.exit(1);
+        }
+
         const spinner = ora(`${t.searching} ${id.toUpperCase()} ...`).start();
 
         try {
-            const result = await search(id.toUpperCase(), lang);
+            const result = await search(id.toUpperCase(), lang, source);
             spinner.stop();
 
             if (!result) {

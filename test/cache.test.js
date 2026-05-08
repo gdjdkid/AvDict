@@ -69,6 +69,19 @@ describe('cache.js', () => {
         expect(getCache('IPX-001')).toEqual(dataB);
     });
 
+    it('setCache：自动模式和手动指定数据源的缓存彼此隔离', async () => {
+        const { getCache, setCache } = await importCache();
+        const autoData = { id: 'SSIS-001', source: 'NJAV', title: '自动兜底结果' };
+        const manualData = { id: 'SSIS-001', source: 'JAVBUS', title: '手动指定结果' };
+
+        setCache('SSIS-001', autoData);
+        setCache('SSIS-001', manualData, 'javbus');
+
+        expect(getCache('SSIS-001')).toEqual(autoData);
+        expect(getCache('SSIS-001', 'javbus')).toEqual(manualData);
+        expect(getCache('SSIS-001', 'njav')).toBeNull();
+    });
+
     it('clearCache：清空后所有缓存消失', async () => {
         const { getCache, setCache, clearCache } = await importCache();
         setCache('SSIS-001', { id: 'SSIS-001' });

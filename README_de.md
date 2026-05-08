@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)]()
 
-Gib eine Titel-ID ein und erhalte sofort vollständige Informationen — Besetzung, Erscheinungsdatum, Studio, Laufzeit, Tags und mehr. Mehrere Datenquellen werden automatisch abgefragt, ohne manuelles Umschalten.
+Gib eine Titel-ID ein und erhalte sofort vollständige Informationen — Besetzung, Erscheinungsdatum, Studio, Laufzeit, Tags und mehr. Mehrere Datenquellen werden standardmäßig automatisch abgefragt, bei Bedarf kannst du aber auch eine einzelne Quelle erzwingen.
 
 ![JavDict-Demo-de](https://raw.githubusercontent.com/gdjdkid/AvDict/master/assets/Javdict-Demo-de.gif)
 
@@ -17,7 +17,7 @@ Gib eine Titel-ID ein und erhalte sofort vollständige Informationen — Besetzu
 
 ## Funktionen
 
-- 🔍 **Automatisches Multi-Source-Fallback** — Fragt JAVBUS → NJAV → JavLibrary → JAVDB der Reihe nach ab und gibt beim ersten Treffer zurück
+- 🔍 **Automatisches Multi-Source-Fallback** — Fragt standardmäßig JAVBUS → NJAV → JavLibrary → JAVDB der Reihe nach ab und gibt beim ersten Treffer zurück; bei Bedarf kannst du auch eine einzelne Quelle erzwingen
 - 📋 **Umfangreiche Metadaten** — Besetzung, Erscheinungsdatum, Laufzeit, Studio, Label, Regisseur, Serie, Tags, Cover-Bild, Bewertung
 - 💾 **Lokaler Cache** — Ergebnisse werden 7 Tage lang gecacht, um wiederholte Anfragen zu reduzieren
 - 🖥️ **Plattformübergreifend** — Linux, Windows und macOS werden unterstützt
@@ -110,6 +110,13 @@ jav -l de SSIS-001       # Kurzform
 jav -r SSIS-001
 ```
 
+**Eine bestimmte Datenquelle erzwingen：**
+
+```bash
+jav --source javbus SSIS-001
+jav -s njav SSIS-001
+```
+
 **Lokalen Cache leeren：**
 
 ```bash
@@ -141,6 +148,7 @@ Arguments:
 Options:
   -v, --version         Versionsnummer ausgeben
   -l, --lang <Sprache>  Ausgabesprache: zh/en/jp/kr/de (Standard: zh)
+  -s, --source <source> Datenquelle wählen: auto/javbus/njav/javlibrary/javdb (Standard: auto)
   -r, --raw             Ausgabe als rohes JSON
   --setup               JAVDB Cookie konfigurieren（optional, verbessert Abdeckung）
   --clear-cache         Lokalen Cache leeren
